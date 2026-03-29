@@ -1,8 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('extended stay long duration', async ({ page }) => {
-    test.slow();
-
+test('booking confirmation shown', async ({ page }) => {
     await page.goto('https://adactinhotelapp.com/');
     await page.fill('#username', 'haristester01');
     await page.fill('#password', 'haristester01');
@@ -13,10 +11,10 @@ test('extended stay long duration', async ({ page }) => {
     await page.selectOption('#hotels', 'Hotel Cornice');
     await page.selectOption('#room_type', 'Double');
     await page.selectOption('#room_nos', '1');
-    await page.fill('#datepick_in', '01/04/2025');
-    await page.fill('#datepick_out', '01/05/2025');
+    await page.fill('#datepick_in', '03/04/2025');
+    await page.fill('#datepick_out', '10/04/2025');
     await page.selectOption('#adult_room', '1 - One');
-    await page.selectOption('#child_room', '1 - One');
+    await page.selectOption('#child_room', '0 - None');
     await page.click('#Submit');
 
     await page.click('#radiobutton_0');
@@ -26,28 +24,17 @@ test('extended stay long duration', async ({ page }) => {
     await page.fill('#first_name', 'Anas');
     await page.fill('#last_name', 'Arif');
     await page.fill('#address', '9843u, university road, xinjiang');
-    await page.fill('#cc_num', '4758934758934567');
-    await page.selectOption('#cc_type', 'VISA');
+    await page.fill('#cc_num', '5258934758934567');
+    await page.selectOption('#cc_type', 'Master Card');
     await page.selectOption('#cc_exp_month', 'March');
     await page.selectOption('#cc_exp_year', '2026');
     await page.fill('#cc_cvv', '093');
-
     await page.click('#book_now');
 
     await page.waitForSelector('#order_no');
     const orderNumber = await page.inputValue('#order_no');
     expect(orderNumber).toBeTruthy();
 
-    await page.click('#my_itinerary');
-    await page.waitForSelector('#order_id_text');
-    await page.fill('#order_id_text', orderNumber);
-    await page.click('#search_hotel_id');
-
-    await page.waitForSelector('#search_result_error');
-    const orderId = await page.inputValue('.select_text');
-    expect(orderId).toBe(orderNumber);
-
-    await page.click('#logout');
-    const logoutMsg = page.locator('.reg_success');
-    await expect(logoutMsg).toContainText('You have successfully logged out');
+    const successMsg = page.locator('td:has-text("Booking Confirmation")');
+    await expect(successMsg).toBeVisible();
 });

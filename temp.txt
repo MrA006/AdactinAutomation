@@ -1,0 +1,32 @@
+✅ Positive Test Cases
+
+TC-P01 — Verify Price Calculation Before Confirming
+On the booking confirmation page (before clicking Book Now), cross-verify that the displayed total = price per night × number of nights × number of rooms. Then complete the booking and assert the same total appears on the final confirmation.
+
+TC-P02 — Booking with Multiple Rooms & Adults
+Same flow but select 3 rooms, 3 adults, 2 children. Use a different valid hotel and location (e.g. Melbourne). Verify the booking confirmation still generates a valid order number and it's retrievable in the itinerary.
+
+TC-E03 — Same Day Check-In and Check-Out
+Enter identical dates for both check-in and check-out. Assert the system either blocks this with a clear validation message or defines how zero-night stays are handled. Should not silently book a meaningless stay.
+
+TC-P04 — Extended Stay (Long Duration)
+Check-in and check-out dates 30 days apart. Verify the price breakdown on the booking confirmation reflects the extended duration before submitting. Confirm order ID appears correctly in the itinerary.
+
+TC-P05 — Book with Minimum Guest Count (1 Adult, 0 Children)
+Select 1 adult and 0 children for a single room. Verify the system accepts this as a valid solo traveler booking, generates an order number, and it appears correctly in the itinerary.
+
+❌ Negative Test Cases
+TC-N01 — Invalid Login Credentials
+Attempt login with a valid username but wrong password (e.g. wrongpass123). Assert the user is not redirected to the search page and an appropriate error message is displayed on the login page.
+
+TC-N02 — Check-Out Date Before Check-In Date
+Fill check-in as 10/04/2025 and check-out as 03/04/2025 (reversed). Submit the search. Assert a validation error is shown and the user cannot proceed to hotel selection.
+
+TC-E03 — Direct URL Access Without Login
+Without logging in, attempt to navigate directly to the search page or booking page URL. Assert the app redirects unauthenticated users back to the login page and does not render protected content.
+
+TC-N04 — Searching Itinerary with a Non-Existent Order ID
+Skip the booking flow entirely. Go directly to My Itinerary, manually type a made-up order ID (e.g. HTL-000000). Click search. Assert that no results are returned and an appropriate "not found" or error message is displayed.
+
+TC-N05 — Expired Credit Card
+On the booking details page, select an expiry year that is in the past (e.g. January 2023). Submit the booking. Assert the system rejects the card with a validation error and does not generate an order number.

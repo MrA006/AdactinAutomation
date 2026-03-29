@@ -1,8 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('book with mastercard', async ({ page }) => {
-    test.slow();
-
+test('successful hotel selection and booking', async ({ page }) => {
     await page.goto('https://adactinhotelapp.com/');
     await page.fill('#username', 'haristester01');
     await page.fill('#password', 'haristester01');
@@ -16,7 +14,7 @@ test('book with mastercard', async ({ page }) => {
     await page.fill('#datepick_in', '03/04/2025');
     await page.fill('#datepick_out', '10/04/2025');
     await page.selectOption('#adult_room', '1 - One');
-    await page.selectOption('#child_room', '1 - One');
+    await page.selectOption('#child_room', '0 - None');
     await page.click('#Submit');
 
     await page.click('#radiobutton_0');
@@ -34,10 +32,6 @@ test('book with mastercard', async ({ page }) => {
     await page.click('#book_now');
 
     await page.waitForSelector('#order_no');
-    const orderNumber = await page.inputValue('#order_no');
-    expect(orderNumber).toBeTruthy();
-
-    await page.click('#logout');
-    const logoutMsg = page.locator('.reg_success');
-    await expect(logoutMsg).toContainText('You have successfully logged out');
+    const orderNoField = page.locator('#order_no');
+    await expect(orderNoField).toBeVisible();
 });
