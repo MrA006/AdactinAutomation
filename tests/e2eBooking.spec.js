@@ -57,4 +57,10 @@ test('end-to-end booking flow', async ({ page }) => {
     await page.waitForSelector('#search_result_error');
     const orderId = await page.inputValue('.select_text');
     console.log('Order ID found in itinerary:', orderId);
+
+
+    await page.click('#logout');
+    const logoutMsg = page.locator('.reg_success');
+    await expect(logoutMsg).toContainText('You have successfully logged out');
+    console.log('Log Out successfully!');
 });
