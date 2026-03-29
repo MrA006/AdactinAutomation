@@ -35,6 +35,6 @@ test('booking confirmation shown', async ({ page }) => {
     const orderNumber = await page.inputValue('#order_no');
     expect(orderNumber).toBeTruthy();
 
-    const successMsg = page.locator('td:has-text("Booking Confirmation")');
+    const successMsg = page.locator('td.login_title:has-text("Booking Confirmation")');
     await expect(successMsg).toBeVisible();
 });
