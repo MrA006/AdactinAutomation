@@ -46,7 +46,7 @@ test('end-to-end booking flow', async ({ page }) => {
 
     await page.waitForSelector('#order_no');
     const orderNumber = await page.inputValue('#order_no');
-    console.log('Booking successful! Order Number:', orderNumber);
+    expect(orderNumber).toBeTruthy();
 
     //navigate to my_itinerary and verify whether order id is present
     await page.click('#my_itinerary');
@@ -56,11 +56,10 @@ test('end-to-end booking flow', async ({ page }) => {
 
     await page.waitForSelector('#search_result_error');
     const orderId = await page.inputValue('.select_text');
-    console.log('Order ID found in itinerary:', orderId);
+    expect(orderId).toBe(orderNumber);
 
 
     await page.click('#logout');
     const logoutMsg = page.locator('.reg_success');
     await expect(logoutMsg).toContainText('You have successfully logged out');
-    console.log('Log Out successfully!');
 });
