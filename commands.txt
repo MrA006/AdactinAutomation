@@ -1,0 +1,23 @@
+npx playwright test e2eBooking.spec.js --headed
+
+npx playwright test Negative_Case_01-InvalidLogin.spec.js --headed
+
+npx playwright test Negative_Case_02-SearchWithoutMandatoryFields.spec.js --headed
+
+npx playwright test Negative_Case_03-EmptyBookingFields.spec.js --headed
+
+npx playwright test Negative_Case_04-ExpiredCreditCard.spec.js --headed
+
+npx playwright test Negative_Case_05-LogoutWithoutLogin.spec.js --headed
+
+npx playwright test Positive_Case_01-SuccessfulLogin.spec.js --headed
+
+npx playwright test Positive_Case_02-ValidHotelSearch.spec.js --headed
+
+npx playwright test Positive_Case_03-HotelSelectionAndBooking.spec.js --headed
+
+npx playwright test Positive_Case_04-BookingConfirmation.spec.js --headed
+
+npx playwright test Positive_Case_05-LogoutAfterBooking.spec.js --headed
+
+npx playwright test --reporter=list
